@@ -1,0 +1,210 @@
+<table_schema>
+{SalesLT.Address}
+    - AddressID: int
+    - AddressLine1: nvarchar(60)
+    - AddressLine2: nvarchar(60)
+    - City: nvarchar(30)
+    - StateProvince: dbo.Name
+    - CountryRegion: dbo.Name
+    - PostalCode: nvarchar(15)
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_Address_AddressID: Primary Key on AddressID
+        - AK_Address_rowguid: Unique constraint on rowguid
+        - DF_Address_rowguid: Default constraint on rowguid
+        - DF_Address_ModifiedDate: Default constraint on ModifiedDate
+
+{SalesLT.Customer}
+    - CustomerID: int
+    - NameStyle: dbo.NameStyle
+    - Title: nvarchar(8)
+    - FirstName: dbo.Name
+    - MiddleName: dbo.Name
+    - LastName: dbo.Name
+    - Suffix: nvarchar(10)
+    - CompanyName: nvarchar(128)
+    - SalesPerson: nvarchar(256)
+    - EmailAddress: nvarchar(50)
+    - Phone: dbo.Phone
+    - PasswordHash: varchar(128)
+    - PasswordSalt: varchar(10)
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_Customer_CustomerID: Primary Key on CustomerID
+        - AK_Customer_rowguid: Unique constraint on rowguid
+        - DF_Customer_NameStyle: Default constraint on NameStyle
+        - DF_Customer_rowguid: Default constraint on rowguid
+        - DF_Customer_ModifiedDate: Default constraint on ModifiedDate
+
+{SalesLT.CustomerAddress}
+    - CustomerID: int
+    - AddressID: int
+    - AddressType: dbo.Name
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_CustomerAddress_CustomerID_AddressID: Primary Key on CustomerID, AddressID
+        - AK_CustomerAddress_rowguid: Unique constraint on rowguid
+        - DF_CustomerAddress_rowguid: Default constraint on rowguid
+        - DF_CustomerAddress_ModifiedDate: Default constraint on ModifiedDate
+        - FK_CustomerAddress_Address_AddressID: Foreign Key on AddressID referencing SalesLT.Address
+        - FK_CustomerAddress_Customer_CustomerID: Foreign Key on CustomerID referencing SalesLT.Customer
+
+{SalesLT.Product}
+    - ProductID: int
+    - Name: dbo.Name
+    - ProductNumber: nvarchar(25)
+    - Color: nvarchar(15)
+    - StandardCost: money
+    - ListPrice: money
+    - Size: nvarchar(5)
+    - Weight: decimal(8, 2)
+    - ProductCategoryID: int
+    - ProductModelID: int
+    - SellStartDate: datetime
+    - SellEndDate: datetime
+    - DiscontinuedDate: datetime
+    - ThumbNailPhoto: varbinary(max)
+    - ThumbnailPhotoFileName: nvarchar(50)
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_Product_ProductID: Primary Key on ProductID
+        - AK_Product_Name: Unique constraint on Name
+        - AK_Product_ProductNumber: Unique constraint on ProductNumber
+        - AK_Product_rowguid: Unique constraint on rowguid
+        - DF_Product_rowguid: Default constraint on rowguid
+        - DF_Product_ModifiedDate: Default constraint on ModifiedDate
+        - FK_Product_ProductCategory_ProductCategoryID: Foreign Key on ProductCategoryID referencing SalesLT.ProductCategory
+        - FK_Product_ProductModel_ProductModelID: Foreign Key on ProductModelID referencing SalesLT.ProductModel
+        - CK_Product_ListPrice: Check constraint on ListPrice
+        - CK_Product_SellEndDate: Check constraint on SellEndDate
+        - CK_Product_StandardCost: Check constraint on StandardCost
+        - CK_Product_Weight: Check constraint on Weight
+
+{SalesLT.ProductCategory}
+    - ProductCategoryID: int
+    - ParentProductCategoryID: int
+    - Name: dbo.Name
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_ProductCategory_ProductCategoryID: Primary Key on ProductCategoryID
+        - AK_ProductCategory_Name: Unique constraint on Name
+        - AK_ProductCategory_rowguid: Unique constraint on rowguid
+        - DF_ProductCategory_rowguid: Default constraint on rowguid
+        - DF_ProductCategory_ModifiedDate: Default constraint on ModifiedDate
+        - FK_ProductCategory_ProductCategory_ParentProductCategoryID_ProductCategoryID: Foreign Key on ParentProductCategoryID referencing SalesLT.ProductCategory
+
+{SalesLT.ProductDescription}
+    - ProductDescriptionID: int
+    - Description: nvarchar(400)
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_ProductDescription_ProductDescriptionID: Primary Key on ProductDescriptionID
+        - AK_ProductDescription_rowguid: Unique constraint on rowguid
+        - DF_ProductDescription_rowguid: Default constraint on rowguid
+        - DF_ProductDescription_ModifiedDate: Default constraint on ModifiedDate
+
+{SalesLT.ProductModel}
+    - ProductModelID: int
+    - Name: dbo.Name
+    - CatalogDescription: xml
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_ProductModel_ProductModelID: Primary Key on ProductModelID
+        - AK_ProductModel_Name: Unique constraint on Name
+        - AK_ProductModel_rowguid: Unique constraint on rowguid
+        - DF_ProductModel_rowguid: Default constraint on rowguid
+        - DF_ProductModel_ModifiedDate: Default constraint on ModifiedDate
+
+{SalesLT.ProductModelProductDescription}
+    - ProductModelID: int
+    - ProductDescriptionID: int
+    - Culture: nchar(6)
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_ProductModelProductDescription_ProductModelID_ProductDescriptionID_Culture: Primary Key on ProductModelID, ProductDescriptionID, Culture
+        - AK_ProductModelProductDescription_rowguid: Unique constraint on rowguid
+        - DF_ProductModelProductDescription_rowguid: Default constraint on rowguid
+        - DF_ProductModelProductDescription_ModifiedDate: Default constraint on ModifiedDate
+        - FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID: Foreign Key on ProductDescriptionID referencing SalesLT.ProductDescription
+        - FK_ProductModelProductDescription_ProductModel_ProductModelID: Foreign Key on ProductModelID referencing SalesLT.ProductModel
+
+{SalesLT.SalesOrderDetail}
+    - SalesOrderID: int
+    - SalesOrderDetailID: int
+    - CarrierTrackingNumber: nvarchar(25)
+    - OrderQty: smallint
+    - ProductID: int
+    - SpecialOfferID: int
+    - UnitPrice: money
+    - UnitPriceDiscount: money
+    - LineTotal: numeric(38, 6)
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID: Primary Key on SalesOrderID, SalesOrderDetailID
+        - AK_SalesOrderDetail_rowguid: Unique constraint on rowguid
+        - DF_SalesOrderDetail_rowguid: Default constraint on rowguid
+        - DF_SalesOrderDetail_ModifiedDate: Default constraint on ModifiedDate
+        - FK_SalesOrderDetail_Product_ProductID: Foreign Key on ProductID referencing SalesLT.Product
+        - FK_SalesOrderDetail_SalesOrder_SalesOrderID: Foreign Key on SalesOrderID referencing SalesLT.SalesOrderHeader
+        - FK_SalesOrderDetail_SpecialOfferProduct_SpecialOfferID_ProductID: Foreign Key on SpecialOfferID, ProductID referencing SalesLT.SpecialOfferProduct
+
+{SalesLT.SalesOrderHeader}
+    - SalesOrderID: int
+    - RevisionNumber: tinyint
+    - OrderDate: datetime
+    - DueDate: datetime
+    - ShipDate: datetime
+    - Status: tinyint
+    - OnlineOrderFlag: dbo.Flag
+    - SalesOrderNumber: nvarchar(25)
+    - PurchaseOrderNumber: nvarchar(25)
+    - AccountNumber: nvarchar(15)
+    - CustomerID: int
+    - SalesPersonID: int
+    - TerritoryID: int
+    - BillToAddressID: int
+    - ShipToAddressID: int
+    - ShipMethodID: int
+    - CreditCardID: int
+    - CreditCardApprovalCode: nvarchar(15)
+    - CurrencyRateID: int
+    - SubTotal: money
+    - TaxAmt: money
+    - Freight: money
+    - TotalDue: money
+    - Comment: ntext
+    - rowguid: uniqueidentifier
+    - ModifiedDate: datetime
+
+    Constraints:
+        - PK_SalesOrderHeader_SalesOrderID: Primary Key on SalesOrderID
+        - AK_SalesOrderHeader_rowguid: Unique constraint on rowguid
+        - DF_SalesOrderHeader_rowguid: Default constraint on rowguid
+        - DF_SalesOrderHeader_ModifiedDate: Default constraint on ModifiedDate
+        - FK_SalesOrderHeader_Address_BillToAddressID: Foreign Key on BillToAddressID referencing SalesLT.Address
+        - FK_SalesOrderHeader_Address_ShipToAddressID: Foreign Key on ShipToAddressID referencing SalesLT.Address
+        - FK_SalesOrderHeader_CreditCard_CreditCardID: Foreign Key on CreditCardID referencing SalesLT.CreditCard
+        - FK_SalesOrderHeader_CurrencyRate_CurrencyRateID: Foreign Key on CurrencyRateID referencing SalesLT.CurrencyRate
+        - FK_SalesOrderHeader_Customer_CustomerID: Foreign Key on CustomerID referencing SalesLT.Customer
+        - FK_SalesOrderHeader_SalesPerson_SalesPersonID: Foreign Key on SalesPersonID referencing SalesLT.SalesPerson
+        - FK_SalesOrderHeader_SalesTerritory_TerritoryID: Foreign Key on TerritoryID referencing SalesLT.SalesTerritory
+        - FK_SalesOrderHeader_ShipMethod_ShipMethodID: Foreign Key on ShipMethodID referencing SalesLT.ShipMethod
+</table_schema>
