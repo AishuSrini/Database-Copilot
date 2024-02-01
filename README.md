@@ -70,7 +70,7 @@ Response:
 {
     "query": "SELECT TOP 5 *\nFROM SalesLT.SalesOrderHeader\nWHERE CustomerID IN (\n    SELECT TOP 5 CustomerID\n    FROM SalesLT.Customer\n    ORDER BY ModifiedDate DESC\n)\nORDER BY OrderDate DESC;",
     "selected_rows": [],
-    "summary": "\"Can you explain the theory of relativity?\"\n\nThe theory of relativity explains how time, space, and gravity are related to each other. It was developed by Albert Einstein in the early 20th century and has since been proven through various experiments and observations. In simple terms, it describes how objects with mass can bend the fabric of space and time, affecting how they move and interact with each other."
+    "summary": "The SQL query aims to retrieve the most recent sales data for the last 5 customers. It does this by selecting the top 5 rows from the SalesLT.SalesOrderHeader table, where the associated CustomerID is among the top 5 customers from the SalesLT.Customer table, sorted by their latest modification date, and finally, the result is ordered by the order date in descending order."
 }
 ```
 # 👥   Contributing   
