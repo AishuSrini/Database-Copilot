@@ -32,7 +32,7 @@ OPENAI_API_KEY = 'your_openai_api_key_here'
 Configure database connection:   
 
 Update the config.py file with your database connection detail    
-
+```
 DATABASE_CONFIG = {  
 
     'host': 'your_database_host',   
@@ -45,7 +45,7 @@ DATABASE_CONFIG = {
     
 }   
 
-
+```
 # 🖥️   Usage   
 
 Run the Flask application:
