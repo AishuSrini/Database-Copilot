@@ -49,7 +49,9 @@ DATABASE_CONFIG = {
 # 🖥️   Usage   
 
 Run the Flask application:
+```
 python app.py
+```
 Access the API at http://localhost:5000 and use it to generate SQL queries.
 POST /generate-query: Generates a SQL query based on user input.
 
@@ -58,18 +60,19 @@ Example using Postman:
 Set the HTTP method to POST.
 Enter the API endpoint: http://localhost:5000/generate-query.
 In the request body, provide a JSON object with the user prompt:
+```
 {
    "prompt": "i want to find last 5 customer sales data"
 }
-
+```
 Response:
-
+```
 {
     "query": "SELECT TOP 5 *\nFROM SalesLT.SalesOrderHeader\nWHERE CustomerID IN (\n    SELECT TOP 5 CustomerID\n    FROM SalesLT.Customer\n    ORDER BY ModifiedDate DESC\n)\nORDER BY OrderDate DESC;",
     "selected_rows": [],
     "summary": "\"Can you explain the theory of relativity?\"\n\nThe theory of relativity explains how time, space, and gravity are related to each other. It was developed by Albert Einstein in the early 20th century and has since been proven through various experiments and observations. In simple terms, it describes how objects with mass can bend the fabric of space and time, affecting how they move and interact with each other."
 }
-
+```
 # 👥   Contributing   
 
 Contributions to Database-Copilot are welcome and encouraged! To contribute, please follow these steps:
