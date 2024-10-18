@@ -1,5 +1,5 @@
 # Database-Copilot
-The API-Query-Generator is a Python application developed with Flask, allowing users to create SQL queries based on natural language text. Leveraging the Azure OpenAI language model, the application establishes a connection to a designated database, interprets user prompts to generate SQL queries, executes them, and delivers a concise summary that elucidates and justifies the user's initial question or prompt.
+The Database-Copilot is a Python application developed with Flask, allowing users to create SQL queries based on natural language text. Leveraging the Azure OpenAI language model, the application establishes a connection to a designated database, interprets user prompts to generate SQL queries, executes them, and delivers a concise summary that elucidates and justifies the user's initial question or prompt.
 
 With the Database-Copilot, you don't need to be a SQL expert to understand what's going on in your database, or to write SQL queries. You can simply type in your query in natural language and get the corresponding SQL code and summary of the result( human-readable translation).This project is 100% free and open source.
 
