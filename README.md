@@ -6,7 +6,7 @@ With the Database-Copilot, you don't need to be a SQL expert to understand what'
 # 🌟   Features    
 
 * Flask API: Utilizes Flask to create a web API for generating SQL queries.
-* OpenAI Integration: Connects to the OpenAI API to generate SQL queries based on user prompts.
+* Azure OpenAI Integration: Connects to the Azure OpenAI API to generate SQL queries based on user prompts.
 * Database Connectivity: Establishes a connection to the specified database to execute generated queries.
 * Query Summarization: Provides a summarized response to explain and justify the user's original question or prompt.
 * POST Method Support: Allows handling POST requests, facilitating interaction via tools like Postman.
